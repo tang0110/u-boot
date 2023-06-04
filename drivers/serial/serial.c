@@ -174,6 +174,7 @@ void serial_register(struct serial_device *dev)
  */
 int serial_initialize(void)
 {
+	puts("serial_initialize == init\n");
 	atmel_serial_initialize();
 	mcf_serial_initialize();
 	mpc85xx_serial_initialize();

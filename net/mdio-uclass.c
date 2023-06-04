@@ -163,7 +163,7 @@ struct phy_device *dm_mdio_phy_connect(struct udevice *mdiodev, int phyaddr,
 
 	if (device_probe(mdiodev))
 		return NULL;
-
+	puts("dm_mdio_phy_connect\n");
 	return phy_connect(pdata->mii_bus, phyaddr, ethdev, interface);
 }
 
@@ -177,6 +177,7 @@ static struct phy_device *dm_eth_connect_phy_handle(struct udevice *ethdev,
 
 	if (CONFIG_IS_ENABLED(PHY_FIXED) &&
 	    ofnode_phy_is_fixed_link(dev_ofnode(ethdev), &phynode)) {
+		puts("dm_eth_connect_phy_handle\n");
 		phy = phy_connect(NULL, 0, ethdev, interface);
 		goto out;
 	}

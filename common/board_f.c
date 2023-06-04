@@ -201,6 +201,7 @@ static int print_cpuinfo(void)
 static int announce_dram_init(void)
 {
 	puts("DRAM:  ");
+
 	return 0;
 }
 
@@ -647,6 +648,7 @@ static int reloc_fdt(void)
 
 static int reloc_bootstage(void)
 {
+	puts("reloc_bootstage\n");
 #ifdef CONFIG_BOOTSTAGE
 	if (gd->flags & GD_FLG_SKIP_RELOC)
 		return 0;
@@ -666,6 +668,7 @@ static int reloc_bootstage(void)
 
 static int reloc_bloblist(void)
 {
+	puts("reloc_bloblist\n");
 #ifdef CONFIG_BLOBLIST
 	/*
 	 * Relocate only if we are supposed to send it
@@ -691,6 +694,7 @@ static int reloc_bloblist(void)
 
 static int setup_reloc(void)
 {
+	puts("setup_reloc\n");
 	if (!(gd->flags & GD_FLG_SKIP_RELOC)) {
 #ifdef CONFIG_TEXT_BASE
 #ifdef ARM

@@ -230,6 +230,7 @@ static inline int event_uninit(void)
 
 static inline int event_init(void)
 {
+	puts("event_init\n");
 	return 0;
 }
 #endif

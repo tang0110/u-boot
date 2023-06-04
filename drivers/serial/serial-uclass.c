@@ -173,6 +173,7 @@ int serial_init(void)
 /* Called after relocation */
 int serial_initialize(void)
 {
+	puts("serial_initialize == uclass\n");
 	/* Scanning uclass to probe devices */
 	if (IS_ENABLED(CONFIG_SERIAL_PROBE_ALL)) {
 		int ret;

@@ -1,4 +1,4 @@
-if TARGET_MX6ULL_UP3D
+if TARGET_UP3D
 
 config SYS_BOARD
 	default "up3d"

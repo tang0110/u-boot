@@ -19,21 +19,12 @@
 #include <env.h>
 #include <fsl_esdhc_imx.h>
 #include <linux/sizes.h>
+#include <linux/delay.h>
 #include <mmc.h>
 #include <miiphy.h>
+#include <netdev.h>
 
 DECLARE_GLOBAL_DATA_PTR;
-
-
-
-#define ENET1_RESET IMX_GPIO_NR(5, 7)
-#define ENET2_RESET IMX_GPIO_NR(5, 8)
-
-
-static iomux_v3_cfg_t const leds_pads[] = {
-	CONFIG_LED1_IOMUXC | MUX_PAD_CTRL(NO_PAD_CTRL),
-	CONFIG_LED2_IOMUXC | MUX_PAD_CTRL(NO_PAD_CTRL),
-};
 
 // static iomux_v3_cfg_t const lcd_backlight_pads[] = {
 //         MX6_PAD_GPIO1_IO08__GPIO1_IO08 | MUX_PAD_CTRL(NO_PAD_CTRL),
@@ -66,16 +57,31 @@ int mmc_map_to_kernel_blk(int devno)
 // 	imx_iomux_v3_setup_multiple_pads(uart1_pads, ARRAY_SIZE(uart1_pads));
 // }
 
+int imx6_light_up_led1 (void)
+{
+	gpio_direction_output(CONFIG_LED1, 0);
+
+	return 0;
+}
+
 int board_early_init_f(void)
 {
-	// imx_iomux_v3_setup_multiple_pads(lcd_backlight_pads, ARRAY_SIZE(lcd_backlight_pads));
-	gpio_direction_output(IMX_GPIO_NR(1, 8) , 0);
-	// setup_iomux_uart();
+	// imx6_light_up_led1();
 
 	return 0;
 }
 
 #ifdef CONFIG_FEC_MXC
+
+#define MDIO_PAD_CTRL  (PAD_CTL_PUS_100K_UP | PAD_CTL_PUE |     \
+	PAD_CTL_DSE_48ohm   | PAD_CTL_SRE_FAST | PAD_CTL_ODE)
+
+#define ENET_PAD_CTRL  (PAD_CTL_PUS_100K_UP | PAD_CTL_PUE |     \
+	PAD_CTL_SPEED_HIGH   |                                  \
+	PAD_CTL_DSE_48ohm   | PAD_CTL_SRE_FAST)
+
+#define ENET_CLK_PAD_CTRL  (PAD_CTL_DSE_40ohm   | PAD_CTL_SRE_FAST)
+
 /*
  * pin conflicts for fec1 and fec2, GPIO1_IO06 and GPIO1_IO07 can only
  * be used for ENET1 or ENET2, cannot be used for both.
@@ -110,6 +116,9 @@ static iomux_v3_cfg_t const fec2_pads[] = {
 	MX6_PAD_SNVS_TAMPER8__GPIO5_IO08 | MUX_PAD_CTRL(NO_PAD_CTRL),		/* ETH2 RESET PIN */
 };
 
+#define ENET1_RESET IMX_GPIO_NR(5, 7)
+#define ENET2_RESET IMX_GPIO_NR(5, 8)
+
 static void setup_iomux_fec(int fec_id)
 {
 	if (fec_id == 0){
@@ -119,20 +128,17 @@ static void setup_iomux_fec(int fec_id)
 		mdelay(20);
         gpio_set_value(ENET1_RESET, 1);
 	} else {
+
 		imx_iomux_v3_setup_multiple_pads(fec2_pads, ARRAY_SIZE(fec2_pads));
+
         gpio_direction_output(ENET2_RESET, 1);
+
         gpio_set_value(ENET2_RESET, 0);
+
 		mdelay(20);
         gpio_set_value(ENET2_RESET, 1);
-	}
-}
-/*  */
-int board_eth_init(bd_t *bis)
-{
-	setup_iomux_fec(CONFIG_FEC_ENET_DEV);
 
-	return fecmxc_initialize_multi(bis, CONFIG_FEC_ENET_DEV,
-				       CONFIG_FEC_MXC_PHYADDR, IMX_FEC_BASE);
+	}
 }
 
 static int setup_fec(int fec_id)
@@ -176,21 +182,18 @@ int board_phy_config(struct phy_device *phydev)
 }
 #endif
 
-
-
 /* board_init_r call */
 int board_init(void)
 {
+	puts("board_init\n");
 	/* Address of boot parameters */
 	gd->bd->bi_boot_params = PHYS_SDRAM + 0x100;
 
-	imx_iomux_v3_setup_multiple_pads(leds_pads, ARRAY_SIZE(leds_pads));
-
-	board_eth_init(gd->bd);
-	puts("Test:   ");
-
+	puts("1\n");
+	setup_iomux_fec(CONFIG_FEC_ENET_DEV);
 #ifdef	CONFIG_FEC_MXC
-	setup_fec(CFG_FEC_ENET_DEV);
+	setup_fec(CONFIG_FEC_ENET_DEV);
+	puts("7\n");
 #endif
 
 	return 0;

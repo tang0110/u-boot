@@ -1043,7 +1043,7 @@ struct phy_device *phy_connect(struct mii_dev *bus, int addr,
 	if (!phydev)
 		phydev = phy_connect_gmii2rgmii(bus, dev);
 #endif
-
+	puts("phy_connect\n");
 	if (!phydev)
 		phydev = phy_find_by_mask(bus, mask);
 

@@ -17,6 +17,12 @@
 
 #endif
 
+/* LED1 & LED2 configuration  */
+#define CONFIG_LED1_IOMUXC   MX6_PAD_GPIO1_IO03__GPIO1_IO03
+#define CONFIG_LED2_IOMUXC   MX6_PAD_GPIO1_IO04__GPIO1_IO04
+#define CONFIG_LED1          IMX_GPIO_NR(1, 3)
+#define CONFIG_LED2          IMX_GPIO_NR(1, 4)
+
 #include <linux/sizes.h>
 #include <asm/arch/imx-regs.h>
 #include <asm/mach-imx/gpio.h>

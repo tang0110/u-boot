@@ -880,13 +880,13 @@ static const init_fnc_t init_sequence_f[] = {
 	print_resetinfo,
 #endif
 #if defined(CONFIG_DISPLAY_CPUINFO)
-	print_cpuinfo,		/* display cpu info (and speed) */
+	print_cpuinfo,		/* display cpu info (and speed) */	/* 3-5 */
 #endif
 #if defined(CONFIG_DTB_RESELECT)
 	embedded_dtb_select,
 #endif
 #if defined(CONFIG_DISPLAY_BOARDINFO)
-	show_board_info,
+	show_board_info,	/* 6-7 */
 #endif
 	INIT_FUNC_WATCHDOG_INIT
 	misc_init_f,
@@ -897,8 +897,8 @@ static const init_fnc_t init_sequence_f[] = {
 #if defined(CONFIG_VID) && !defined(CONFIG_SPL)
 	init_func_vid,
 #endif
-	announce_dram_init,
-	dram_init,		/* configure available RAM banks */
+	announce_dram_init,	/* 8 */
+	dram_init,		/* configure available RAM banks */	/* 8 */
 #ifdef CONFIG_POST
 	post_init_f,
 #endif

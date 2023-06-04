@@ -655,7 +655,7 @@ static init_fnc_t init_sequence_r[] = {
 	stdio_init_tables,
 	serial_initialize,
 	initr_announce,
-	dm_announce,
+	dm_announce,	/* 9 */
 #if CONFIG_IS_ENABLED(WDT)
 	initr_watchdog,
 #endif
@@ -704,7 +704,7 @@ static init_fnc_t init_sequence_r[] = {
 	initr_onenand,
 #endif
 #ifdef CONFIG_MMC
-	initr_mmc,
+	initr_mmc,	/* 10 */
 #endif
 #ifdef CONFIG_XEN
 	xen_init,
@@ -712,7 +712,7 @@ static init_fnc_t init_sequence_r[] = {
 #ifdef CONFIG_PVBLOCK
 	initr_pvblock,
 #endif
-	initr_env,
+	initr_env,	/* 11 */
 #ifdef CONFIG_SYS_MALLOC_BOOTPARAMS
 	initr_malloc_bootparams,
 #endif
@@ -733,7 +733,7 @@ static init_fnc_t init_sequence_r[] = {
 #ifdef CONFIG_API
 	api_init,
 #endif
-	console_init_r,		/* fully init console as a device */
+	console_init_r,		/* fully init console as a device */	/* 12-14 */
 #ifdef CONFIG_DISPLAY_BOARDINFO_LATE
 	console_announce_r,
 	show_board_info,
@@ -771,7 +771,7 @@ static init_fnc_t init_sequence_r[] = {
 #endif
 #ifdef CONFIG_CMD_NET
 	INIT_FUNC_WATCHDOG_RESET
-	initr_net,
+	initr_net,	/* 15 */
 #endif
 #ifdef CONFIG_POST
 	initr_post,

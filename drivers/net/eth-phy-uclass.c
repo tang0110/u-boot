@@ -167,6 +167,7 @@ void eth_phy_reset(struct udevice *dev, int value)
 
 static int eth_phy_pre_probe(struct udevice *dev)
 {
+	puts("eth_phy_pre_probe\n");
 	/* Assert and deassert the reset signal */
 	eth_phy_reset(dev, 1);
 	eth_phy_reset(dev, 0);

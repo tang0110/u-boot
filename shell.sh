@@ -8,4 +8,4 @@
 make distclean
 make  up3d_defconfig
 make  -j12
-./imxdownload u-boot.bin /dev/sdb
+#./imxdownload u-boot.bin /dev/sdb

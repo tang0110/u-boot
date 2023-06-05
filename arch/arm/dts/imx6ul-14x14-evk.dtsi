@@ -6,12 +6,12 @@
 	chosen {
 		stdout-path = &uart1;
 	};
-
+	/* 内存起始地址 */
 	memory@80000000 {
 		device_type = "memory";
 		reg = <0x80000000 0x20000000>;
 	};
-
+	/* 背光 */
 	backlight_display: backlight-display {
 		compatible = "pwm-backlight";
 		pwms = <&pwm1 0 5000000>;
@@ -51,7 +51,7 @@
 		 */
 		regulator-always-on;
 	};
-
+	/* can 供电 */
 	reg_can_3v3: regulator-can-3v3 {
 		compatible = "regulator-fixed";
 		regulator-name = "can-3v3";

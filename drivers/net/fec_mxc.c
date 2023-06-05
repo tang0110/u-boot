@@ -1134,6 +1134,7 @@ static const struct eth_ops fecmxc_ops = {
 
 static int device_get_phy_addr(struct fec_priv *priv, struct udevice *dev)
 {
+	puts("device_get_phy_addr\n");
 	struct ofnode_phandle_args phandle_args;
 	int reg, ret;
 
@@ -1159,6 +1160,7 @@ static int device_get_phy_addr(struct fec_priv *priv, struct udevice *dev)
 
 static int fec_phy_init(struct fec_priv *priv, struct udevice *dev)
 {
+	puts("fec_phy_init\n");
 	struct phy_device *phydev = NULL;
 	int addr;
 
@@ -1198,6 +1200,7 @@ static void fec_gpio_reset(struct fec_priv *priv)
 
 static int fecmxc_probe(struct udevice *dev)
 {
+	puts("fecmxc_probe\n");
 	bool dm_mii_bus = true;
 	struct eth_pdata *pdata = dev_get_plat(dev);
 	struct fec_priv *priv = dev_get_priv(dev);
@@ -1370,6 +1373,7 @@ err_timeout:
 
 static int fecmxc_remove(struct udevice *dev)
 {
+	puts("fecmxc_remove\n");
 	struct fec_priv *priv = dev_get_priv(dev);
 
 	free(priv->phydev);
@@ -1387,6 +1391,7 @@ static int fecmxc_remove(struct udevice *dev)
 
 static int fecmxc_of_to_plat(struct udevice *dev)
 {
+	puts("fecmxc_of_to_plat\n");
 	int ret = 0;
 	struct eth_pdata *pdata = dev_get_plat(dev);
 	struct fec_priv *priv = dev_get_priv(dev);

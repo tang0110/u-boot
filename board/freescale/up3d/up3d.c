@@ -26,10 +26,6 @@
 
 DECLARE_GLOBAL_DATA_PTR;
 
-// static iomux_v3_cfg_t const lcd_backlight_pads[] = {
-//         MX6_PAD_GPIO1_IO08__GPIO1_IO08 | MUX_PAD_CTRL(NO_PAD_CTRL),
-// };
-
 int dram_init(void)
 {
 	gd->ram_size = imx_ddr_size();
@@ -47,26 +43,8 @@ int mmc_map_to_kernel_blk(int devno)
 	return devno;
 }
 
-// static iomux_v3_cfg_t const uart1_pads[] = {
-// 	MX6_PAD_UART1_TX_DATA__UART1_DCE_TX | MUX_PAD_CTRL(UART_PAD_CTRL),
-// 	MX6_PAD_UART1_RX_DATA__UART1_DCE_RX | MUX_PAD_CTRL(UART_PAD_CTRL),
-// };
-
-// static void setup_iomux_uart(void)
-// {
-// 	imx_iomux_v3_setup_multiple_pads(uart1_pads, ARRAY_SIZE(uart1_pads));
-// }
-
-int imx6_light_up_led1 (void)
-{
-	gpio_direction_output(CONFIG_LED1, 0);
-
-	return 0;
-}
-
 int board_early_init_f(void)
 {
-	// imx6_light_up_led1();
 
 	return 0;
 }
@@ -189,11 +167,9 @@ int board_init(void)
 	/* Address of boot parameters */
 	gd->bd->bi_boot_params = PHYS_SDRAM + 0x100;
 
-	puts("1\n");
-	setup_iomux_fec(CONFIG_FEC_ENET_DEV);
+	// setup_iomux_fec(CONFIG_FEC_ENET_DEV);
 #ifdef	CONFIG_FEC_MXC
 	setup_fec(CONFIG_FEC_ENET_DEV);
-	puts("7\n");
 #endif
 
 	return 0;

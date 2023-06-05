@@ -293,7 +293,7 @@ int stdio_deregister_dev(struct stdio_dev *dev, int force)
 
 int stdio_init_tables(void)
 {
-	puts("stdio_init_tables\n");
+	// puts("stdio_init_tables\n");
 #if defined(CONFIG_NEEDS_MANUAL_RELOC)
 	/* already relocated for current ARM implementation */
 	ulong relocation_offset = gd->reloc_off;

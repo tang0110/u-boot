@@ -189,7 +189,7 @@ static efi_status_t efi_init_os_indications(void)
  */
 int efi_init_early(void)
 {
-	puts("efi_init_early\n");
+	// puts("efi_init_early\n");
 	efi_status_t ret;
 
 	/* Allow unaligned memory access */

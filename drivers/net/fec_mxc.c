@@ -92,6 +92,7 @@ static void swap_packet(uint32_t *packet, int length)
 static int fec_mdio_read(struct ethernet_regs *eth, uint8_t phyaddr,
 		uint8_t regaddr)
 {
+	// puts("fec_mdio_read\n");
 	uint32_t reg;		/* convenient holder for the PHY register */
 	uint32_t phy;		/* convenient holder for the PHY */
 	uint32_t start;
@@ -130,12 +131,14 @@ static int fec_mdio_read(struct ethernet_regs *eth, uint8_t phyaddr,
 #ifndef imx_get_fecclk
 u32 __weak imx_get_fecclk(void)
 {
+	// puts("imx_get_fecclk\n");
 	return 0;
 }
 #endif
 
 static int fec_get_clk_rate(void *udev, int idx)
 {
+	// puts("fec_get_clk_rate\n");
 	struct fec_priv *fec;
 	struct udevice *dev;
 	int ret;
@@ -163,6 +166,7 @@ static int fec_get_clk_rate(void *udev, int idx)
 
 static void fec_mii_setspeed(struct ethernet_regs *eth)
 {
+	// puts("fec_mii_setspeed\n");
 	/*
 	 * Set MII_SPEED = (1/(mii_speed * 2)) * System Clock
 	 * and do not drop the Preamble.
@@ -202,6 +206,7 @@ static void fec_mii_setspeed(struct ethernet_regs *eth)
 static int fec_mdio_write(struct ethernet_regs *eth, uint8_t phyaddr,
 		uint8_t regaddr, uint16_t data)
 {
+	// puts("fec_mdio_write\n");
 	uint32_t reg;		/* convenient holder for the PHY register */
 	uint32_t phy;		/* convenient holder for the PHY */
 	uint32_t start;
@@ -232,12 +237,14 @@ static int fec_mdio_write(struct ethernet_regs *eth, uint8_t phyaddr,
 static int fec_phy_read(struct mii_dev *bus, int phyaddr, int dev_addr,
 			int regaddr)
 {
+	// puts("fec_phy_read\n");
 	return fec_mdio_read(bus->priv, phyaddr, regaddr);
 }
 
 static int fec_phy_write(struct mii_dev *bus, int phyaddr, int dev_addr,
 			 int regaddr, u16 data)
 {
+	// puts("fec_phy_write\n");
 	return fec_mdio_write(bus->priv, phyaddr, regaddr, data);
 }
 
@@ -299,23 +306,27 @@ static int miiphy_wait_aneg(struct eth_device *dev)
 
 static int fec_rx_task_enable(struct fec_priv *fec)
 {
+	// puts("fec_rx_task_enable\n");
 	writel(FEC_R_DES_ACTIVE_RDAR, &fec->eth->r_des_active);
 	return 0;
 }
 
 static int fec_rx_task_disable(struct fec_priv *fec)
 {
+	// puts("fec_rx_task_disable\n");
 	return 0;
 }
 
 static int fec_tx_task_enable(struct fec_priv *fec)
 {
+	// puts("fec_tx_task_enable\n");
 	writel(FEC_X_DES_ACTIVE_TDAR, &fec->eth->x_des_active);
 	return 0;
 }
 
 static int fec_tx_task_disable(struct fec_priv *fec)
 {
+	// puts("fec_tx_task_disable\n");
 	return 0;
 }
 
@@ -330,6 +341,7 @@ static int fec_tx_task_disable(struct fec_priv *fec)
  */
 static void fec_rbd_init(struct fec_priv *fec, int count, int dsize)
 {
+	// puts("fec_rbd_init\n");
 	uint32_t size;
 	ulong data;
 	int i;
@@ -370,6 +382,7 @@ static void fec_rbd_init(struct fec_priv *fec, int count, int dsize)
  */
 static void fec_tbd_init(struct fec_priv *fec)
 {
+	// puts("fec_tbd_init\n");
 	ulong addr = (ulong)fec->tbd_base;
 	unsigned size = roundup(2 * sizeof(struct fec_bd),
 				ARCH_DMA_MINALIGN);
@@ -397,12 +410,14 @@ static void fec_rbd_clean(int last, struct fec_bd *prbd)
 
 static int fec_get_hwaddr(int dev_id, unsigned char *mac)
 {
+	// puts("fec_get_hwaddr\n");
 	imx_get_mac_from_fuse(dev_id, mac);
 	return !is_valid_ethaddr(mac);
 }
 
 static int fecmxc_set_hwaddr(struct udevice *dev)
 {
+	// puts("fecmxc_set_hwaddr\n");
 	struct fec_priv *fec = dev_get_priv(dev);
 	struct eth_pdata *pdata = dev_get_plat(dev);
 	uchar *mac = pdata->enetaddr;
@@ -423,6 +438,7 @@ static int fecmxc_set_hwaddr(struct udevice *dev)
 /* Do initial configuration of the FEC registers */
 static void fec_reg_setup(struct fec_priv *fec)
 {
+	// puts("fec_reg_setup\n");
 	uint32_t rcntrl;
 
 	/* Set interrupt mask register */
@@ -454,6 +470,7 @@ static void fec_reg_setup(struct fec_priv *fec)
  */
 static int fec_open(struct udevice *dev)
 {
+	// puts("fec_open\n");
 	struct fec_priv *fec = dev_get_priv(dev);
 	int speed;
 	ulong addr, size;
@@ -565,6 +582,7 @@ static int fec_open(struct udevice *dev)
 
 static int fecmxc_init(struct udevice *dev)
 {
+	// puts("fecmxc_init\n");
 	struct fec_priv *fec = dev_get_priv(dev);
 	u8 *mib_ptr = (uint8_t *)&fec->eth->rmon_t_drop;
 	u8 *i;
@@ -626,6 +644,7 @@ static int fecmxc_init(struct udevice *dev)
  */
 static void fecmxc_halt(struct udevice *dev)
 {
+	// puts("fecmxc_halt\n");
 	struct fec_priv *fec = dev_get_priv(dev);
 	int counter = 0xffff;
 
@@ -662,6 +681,7 @@ static void fecmxc_halt(struct udevice *dev)
  */
 static int fecmxc_send(struct udevice *dev, void *packet, int length)
 {
+	// puts("fecmxc_send\n");
 	unsigned int status;
 	u32 size;
 	ulong addr, end;
@@ -805,6 +825,7 @@ out:
  */
 static int fecmxc_recv(struct udevice *dev, int flags, uchar **packetp)
 {
+	// puts("fecmxc_recv\n");
 	struct fec_priv *fec = dev_get_priv(dev);
 	struct fec_bd *rbd = &fec->rbd_base[fec->rbd_index];
 	unsigned long ievent;
@@ -917,11 +938,13 @@ static int fecmxc_recv(struct udevice *dev, int flags, uchar **packetp)
 
 static void fec_set_dev_name(char *dest, int dev_id)
 {
+	// puts("fec_set_dev_name\n");
 	sprintf(dest, (dev_id == -1) ? "FEC" : "FEC%i", dev_id);
 }
 
 static int fec_alloc_descs(struct fec_priv *fec)
 {
+	// puts("fec_alloc_descs\n");
 	unsigned int size;
 	int i;
 	uint8_t *data;
@@ -984,6 +1007,7 @@ err_tx:
 
 static void fec_free_descs(struct fec_priv *fec)
 {
+	// puts("fec_free_descs\n");
 	int i;
 	ulong addr;
 
@@ -997,6 +1021,7 @@ static void fec_free_descs(struct fec_priv *fec)
 
 struct mii_dev *fec_get_miibus(ulong base_addr, int dev_id)
 {
+	// puts("fec_get_miibus\n");
 	struct ethernet_regs *eth = (struct ethernet_regs *)base_addr;
 	struct mii_dev *bus;
 	int ret;
@@ -1098,6 +1123,7 @@ static int dm_fec_bind_mdio(struct udevice *dev)
 
 static int fecmxc_read_rom_hwaddr(struct udevice *dev)
 {
+	// puts("fecmxc_read_rom_hwaddr\n");
 	struct fec_priv *priv = dev_get_priv(dev);
 	struct eth_pdata *pdata = dev_get_plat(dev);
 
@@ -1106,6 +1132,7 @@ static int fecmxc_read_rom_hwaddr(struct udevice *dev)
 
 static int fecmxc_set_promisc(struct udevice *dev, bool enable)
 {
+	// puts("fecmxc_set_promisc\n");
 	struct fec_priv *priv = dev_get_priv(dev);
 
 	priv->promisc = enable;
@@ -1115,6 +1142,7 @@ static int fecmxc_set_promisc(struct udevice *dev, bool enable)
 
 static int fecmxc_free_pkt(struct udevice *dev, uchar *packet, int length)
 {
+	// puts("fecmxc_free_pkt\n");
 	if (packet)
 		free(packet);
 
@@ -1134,7 +1162,7 @@ static const struct eth_ops fecmxc_ops = {
 
 static int device_get_phy_addr(struct fec_priv *priv, struct udevice *dev)
 {
-	puts("device_get_phy_addr\n");
+	// puts("device_get_phy_addr\n");
 	struct ofnode_phandle_args phandle_args;
 	int reg, ret;
 
@@ -1160,7 +1188,7 @@ static int device_get_phy_addr(struct fec_priv *priv, struct udevice *dev)
 
 static int fec_phy_init(struct fec_priv *priv, struct udevice *dev)
 {
-	puts("fec_phy_init\n");
+	// puts("fec_phy_init\n");
 	struct phy_device *phydev = NULL;
 	int addr;
 
@@ -1200,13 +1228,22 @@ static void fec_gpio_reset(struct fec_priv *priv)
 
 static int fecmxc_probe(struct udevice *dev)
 {
-	puts("fecmxc_probe\n");
+	// puts("fecmxc_probe\n");
 	bool dm_mii_bus = true;
 	struct eth_pdata *pdata = dev_get_plat(dev);
 	struct fec_priv *priv = dev_get_priv(dev);
 	struct mii_dev *bus = NULL;
 	uint32_t start;
 	int ret;
+
+	// void __iomem *IMX6U_ENET1_TX_CLK;
+	// void __iomem *IMX6U_ENET2_TX_CLK;
+
+	// IMX6U_ENET1_TX_CLK = ioremap(0X020E00DC, 4);
+	// writel(0X14, IMX6U_ENET1_TX_CLK);
+
+	// IMX6U_ENET2_TX_CLK = ioremap(0X020E00FC, 4);
+	// writel(0X14, IMX6U_ENET2_TX_CLK);
 
 	if (IS_ENABLED(CONFIG_IMX_MODULE_FUSE)) {
 		if (enet_fused((ulong)priv->eth)) {
@@ -1391,7 +1428,8 @@ static int fecmxc_remove(struct udevice *dev)
 
 static int fecmxc_of_to_plat(struct udevice *dev)
 {
-	puts("fecmxc_of_to_plat\n");
+	// puts("\n");
+	// puts("fecmxc_of_to_plat\n");
 	int ret = 0;
 	struct eth_pdata *pdata = dev_get_plat(dev);
 	struct fec_priv *priv = dev_get_priv(dev);

@@ -25,6 +25,7 @@ struct eth_phy_device_priv {
 
 int eth_phy_binds_nodes(struct udevice *eth_dev)
 {
+	// puts("eth_phy_binds_nodes\n");
 	ofnode mdio_node, phy_node;
 	const char *node_name;
 	int ret;
@@ -63,6 +64,7 @@ int eth_phy_binds_nodes(struct udevice *eth_dev)
 
 int eth_phy_set_mdio_bus(struct udevice *eth_dev, struct mii_dev *mdio_bus)
 {
+	// puts("eth_phy_set_mdio_bus\n");
 	struct udevice *dev;
 	struct eth_phy_device_priv *uc_priv;
 
@@ -81,6 +83,7 @@ int eth_phy_set_mdio_bus(struct udevice *eth_dev, struct mii_dev *mdio_bus)
 
 struct mii_dev *eth_phy_get_mdio_bus(struct udevice *eth_dev)
 {
+	// puts("eth_phy_get_mdio_bus\n");
 	int ret;
 	struct udevice *phy_dev;
 	struct eth_phy_device_priv *uc_priv;
@@ -111,6 +114,7 @@ struct mii_dev *eth_phy_get_mdio_bus(struct udevice *eth_dev)
 
 int eth_phy_get_addr(struct udevice *dev)
 {
+	// puts("eth_phy_get_addr\n");
 	struct ofnode_phandle_args phandle_args;
 	int reg;
 
@@ -128,6 +132,7 @@ int eth_phy_get_addr(struct udevice *dev)
 /* parsing generic properties of devicetree/bindings/net/ethernet-phy.yaml */
 static int eth_phy_of_to_plat(struct udevice *dev)
 {
+	// puts("eth_phy_of_to_plat\n");
 	struct eth_phy_device_priv *uc_priv = dev_get_uclass_priv(dev);
 	int ret;
 
@@ -149,6 +154,7 @@ static int eth_phy_of_to_plat(struct udevice *dev)
 
 void eth_phy_reset(struct udevice *dev, int value)
 {
+	// puts("eth_phy_reset\n");
 	struct eth_phy_device_priv *uc_priv = dev_get_uclass_priv(dev);
 	u32 delay;
 
@@ -162,12 +168,12 @@ void eth_phy_reset(struct udevice *dev, int value)
 
 	delay = value ? uc_priv->reset_assert_delay : uc_priv->reset_deassert_delay;
 	if (delay)
-		udelay(delay);
+		udelay(delay + 100);
 }
 
 static int eth_phy_pre_probe(struct udevice *dev)
 {
-	puts("eth_phy_pre_probe\n");
+	// puts("eth_phy_pre_probe\n");
 	/* Assert and deassert the reset signal */
 	eth_phy_reset(dev, 1);
 	eth_phy_reset(dev, 0);

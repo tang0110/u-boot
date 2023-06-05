@@ -88,7 +88,7 @@ __weak int cpu_secondary_init_r(void)
 
 static int initr_trace(void)
 {
-	puts("initr_trace\n");
+	// puts("initr_trace\n");
 #ifdef CONFIG_TRACE
 	trace_init(gd->trace_buff, CONFIG_TRACE_BUFFER_SIZE);
 #endif
@@ -98,7 +98,7 @@ static int initr_trace(void)
 
 static int initr_reloc(void)
 {
-	puts("initr_reloc\n");
+	// puts("initr_reloc\n");
 	/* tell others: relocation done */
 	gd->flags |= GD_FLG_RELOC | GD_FLG_FULL_MALLOC_INIT;
 
@@ -112,7 +112,7 @@ static int initr_reloc(void)
  */
 static int initr_caches(void)
 {
-	puts("initr_caches\n");
+	// puts("initr_caches\n");
 	/* Enable caches */
 	enable_caches();
 	return 0;
@@ -126,7 +126,7 @@ __weak int fixup_cpu(void)
 
 static int initr_reloc_global_data(void)
 {
-	puts("initr_reloc_global_data\n");
+	// puts("initr_reloc_global_data\n");
 #ifdef __ARM__
 	monitor_flash_len = _end - __image_copy_start;
 #elif defined(CONFIG_RISCV)
@@ -191,7 +191,7 @@ static int initr_unlock_ram_in_cache(void)
 
 static int initr_barrier(void)
 {
-	puts("initr_barrier\n");
+	// puts("initr_barrier\n");
 #ifdef CONFIG_PPC
 	/* TODO: Can we not use dmb() macros for this? */
 	asm("sync ; isync");
@@ -238,7 +238,7 @@ static int initr_of_live(void)
 #ifdef CONFIG_DM
 static int initr_dm(void)
 {
-	puts("initr_dm\n");
+	// puts("initr_dm\n");
 	int ret;
 
 	oftree_reset();
@@ -261,7 +261,7 @@ static int initr_dm(void)
 
 static int initr_dm_devices(void)
 {
-	puts("initr_dm_devices\n");
+	// puts("initr_dm_devices\n");
 	int ret;
 
 	if (IS_ENABLED(CONFIG_TIMER_EARLY)) {
@@ -293,13 +293,13 @@ static int initr_bootstage(void)
 
 __weak int power_init_board(void)
 {
-	puts("power_init_board\n");
+	// puts("power_init_board\n");
 	return 0;
 }
 
 static int initr_announce(void)
 {
-	puts("initr_announce\n");
+	// puts("initr_announce\n");
 	debug("Now running in RAM - U-Boot at: %08lx\n", gd->relocaddr);
 	return 0;
 }
@@ -315,7 +315,7 @@ static int initr_manual_reloc_cmdtable(void)
 
 static int initr_binman(void)
 {
-	puts("initr_binman\n");
+	// puts("initr_binman\n");
 	int ret;
 
 	if (!CONFIG_IS_ENABLED(BINMAN_FDT))
@@ -564,7 +564,7 @@ int initr_mem(void)
 
 static int dm_announce(void)
 {
-	puts("dm_announce\n");
+	// puts("dm_announce\n");
 	int device_count;
 	int uclass_count;
 

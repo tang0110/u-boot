@@ -233,7 +233,7 @@ int genphy_update_link(struct phy_device *phydev)
 		bmcr_reg = phy_read(phydev, MDIO_DEVAD_NONE, MII_BMCR);
 		phy_write(phydev, MDIO_DEVAD_NONE, MII_BMCR, BMCR_RESET);
 		while(phy_read(phydev, MDIO_DEVAD_NONE, MII_BMCR) & 0X8000) {
-			udelay(100);
+			udelay(200);
 		}
 		phy_write(phydev, MDIO_DEVAD_NONE, MII_BMCR, bmcr_reg);
 		lan8720_flag = 1;
@@ -1043,7 +1043,7 @@ struct phy_device *phy_connect(struct mii_dev *bus, int addr,
 	if (!phydev)
 		phydev = phy_connect_gmii2rgmii(bus, dev);
 #endif
-	puts("phy_connect\n");
+	// puts("phy_connect\n");
 	if (!phydev)
 		phydev = phy_find_by_mask(bus, mask);
 

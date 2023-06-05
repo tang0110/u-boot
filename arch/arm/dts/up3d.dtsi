@@ -331,22 +331,22 @@
 					status = "disabled";
 				};
 
-				esai: esai@02024000 {
-					compatible = "fsl,imx6ull-esai";
-					reg = <0x02024000 0x4000>;
-					interrupts = <GIC_SPI 51 IRQ_TYPE_LEVEL_HIGH>;
-					clocks = <&clks IMX6UL_CLK_ESAI_IPG>,
-						 <&clks IMX6UL_CLK_ESAI_MEM>,
-						 <&clks IMX6UL_CLK_ESAI_EXTAL>,
-						 <&clks IMX6UL_CLK_ESAI_IPG>,
-						 <&clks IMX6UL_CLK_SPBA>;
-					clock-names = "core", "mem", "extal",
-						      "fsys", "dma";
-					dmas = <&sdma 0 21 0>, <&sdma 47 21 0>;
-					dma-names = "rx", "tx";
-					dma-source = <&gpr 0 14 0 15>;
-					status = "disabled";
-				};
+				// esai: esai@02024000 {
+				// 	compatible = "fsl,imx6ull-esai";
+				// 	reg = <0x02024000 0x4000>;
+				// 	interrupts = <GIC_SPI 51 IRQ_TYPE_LEVEL_HIGH>;
+				// 	clocks = <&clks IMX6UL_CLK_ESAI_IPG>,
+				// 		 <&clks IMX6UL_CLK_ESAI_MEM>,
+				// 		 <&clks IMX6UL_CLK_ESAI_EXTAL>,
+				// 		 <&clks IMX6UL_CLK_ESAI_IPG>,
+				// 		 <&clks IMX6UL_CLK_SPBA>;
+				// 	clock-names = "core", "mem", "extal",
+				// 		      "fsys", "dma";
+				// 	dmas = <&sdma 0 21 0>, <&sdma 47 21 0>;
+				// 	dma-names = "rx", "tx";
+				// 	dma-source = <&gpr 0 14 0 15>;
+				// 	status = "disabled";
+				// };
 
 				sai1: sai@02028000 {
 					compatible = "fsl,imx6ul-sai",
@@ -1122,15 +1122,15 @@
 			reg = <0x02200000 0x100000>;
 			ranges;
 
-			dcp: dcp@02280000 {
-				compatible = "fsl,imx6sl-dcp";
-				reg = <0x02280000 0x4000>;
-				interrupts = <GIC_SPI 46 IRQ_TYPE_LEVEL_HIGH>,
-					     <GIC_SPI 47 IRQ_TYPE_LEVEL_HIGH>,
-					     <GIC_SPI 48 IRQ_TYPE_LEVEL_HIGH>;
-				clocks = <&clks IMX6UL_CLK_DCP_CLK>;
-				clock-names = "dcp";
-			};
+			// dcp: dcp@02280000 {
+			// 	compatible = "fsl,imx6sl-dcp";
+			// 	reg = <0x02280000 0x4000>;
+			// 	interrupts = <GIC_SPI 46 IRQ_TYPE_LEVEL_HIGH>,
+			// 		     <GIC_SPI 47 IRQ_TYPE_LEVEL_HIGH>,
+			// 		     <GIC_SPI 48 IRQ_TYPE_LEVEL_HIGH>;
+			// 	clocks = <&clks IMX6UL_CLK_DCP_CLK>;
+			// 	clock-names = "dcp";
+			// };
 
 			rngb: rngb@02284000 {
 				compatible = "fsl,imx6sl-rng", "fsl,imx-rng", "imx-rng";
@@ -1152,17 +1152,17 @@
 				status = "disabled";
 			};
 
-			epdc: epdc@0228c000 {
-				compatible = "fsl,imx7d-epdc";
-				interrupts = <GIC_SPI 112 IRQ_TYPE_LEVEL_HIGH>;
-				reg = <0x0228c000 0x4000>;
-				clocks = <&clks IMX6UL_CLK_EPDC_ACLK>,
-					 <&clks IMX6UL_CLK_EPDC_PIX>;
-				clock-names = "epdc_axi", "epdc_pix";
-				/* Need to fix epdc-ram */
-				/* epdc-ram = <&gpr 0x4 30>; */
-				status = "disabled";
-			};
+			// epdc: epdc@0228c000 {
+			// 	compatible = "fsl,imx7d-epdc";
+			// 	interrupts = <GIC_SPI 112 IRQ_TYPE_LEVEL_HIGH>;
+			// 	reg = <0x0228c000 0x4000>;
+			// 	clocks = <&clks IMX6UL_CLK_EPDC_ACLK>,
+			// 		 <&clks IMX6UL_CLK_EPDC_PIX>;
+			// 	clock-names = "epdc_axi", "epdc_pix";
+			// 	/* Need to fix epdc-ram */
+			// 	/* epdc-ram = <&gpr 0x4 30>; */
+			// 	status = "disabled";
+			// };
 
 			iomuxc_snvs: iomuxc-snvs@02290000 {
 				compatible = "fsl,imx6ull-iomuxc-snvs";

@@ -220,7 +220,7 @@ static int initr_malloc(void)
 
 static int initr_of_live(void)
 {
-	puts("initr_of_live\n");
+	// puts("initr_of_live\n");
 	if (CONFIG_IS_ENABLED(OF_LIVE)) {
 		int ret;
 

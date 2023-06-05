@@ -925,7 +925,7 @@ static void add_u_boot_and_runtime(void)
 
 int efi_memory_init(void)
 {
-	puts("efi_memory_init\n");
+	// puts("efi_memory_init\n");
 	efi_add_known_memory();
 
 	add_u_boot_and_runtime();

@@ -1,0 +1,19 @@
+Samsung	 	三星
+NXP(freescaler)	恩智浦，飞思卡尔
+Rockchip		瑞芯微
+Allwinner		​ 全志
+infineon		英飞凌
+
+
+设备树节点---外设描述
+
+adc
+电压信息
+
+cpus
+
+timer
+
+CCM
+20C_4000    20C_4088
+

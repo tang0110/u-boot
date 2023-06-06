@@ -823,8 +823,11 @@ static struct phy_device *get_phy_device_by_mask(struct mii_dev *bus,
 
 	devad_cnt = sizeof(devad)/sizeof(int);
 	phydev = search_for_existing_phy(bus, phy_mask);
+	puts("get_phy_device_by_mask one way\n");
 	if (phydev)
 		return phydev;
+	
+	puts("get_phy_device_by_mask two way\n");
 	/* try different access clauses  */
 	for (i = 0; i < devad_cnt; i++) {
 		phydev = create_phy_by_mask(bus, phy_mask, devad[i]);
@@ -1024,6 +1027,7 @@ struct phy_device *phy_connect(struct mii_dev *bus, int addr,
 {
 	struct phy_device *phydev = NULL;
 	uint mask = (addr >= 0) ? (1 << addr) : 0xffffffff;
+	printf("addr = %d  mask = %d\n",addr,mask);
 
 #ifdef CONFIG_PHY_FIXED
 	phydev = phy_connect_fixed(bus, dev);

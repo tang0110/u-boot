@@ -932,7 +932,7 @@
 				num-channels = <2>;
 				clock-names = "adc";
 				status = "disabled";
-                        };
+            };
 
 			i2c1: i2c@021a0000 {
 				#address-cells = <1>;
